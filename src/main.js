@@ -2,14 +2,15 @@ import { createApp } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 import App from "./App.vue";
 import "./style.css";
+
 import About from "./views/About.vue";
-import Drinks from "./views/Drinks.vue";
+import Families from "./views/Families.vue";
 import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 
 const routes = [
   { path: "/", component: Home },
-  { path: "/drinks", component: Drinks },
+  { path: "/families", component: Families },
   { path: "/about", component: About },
   { path: "/login", component: Login },
 ];

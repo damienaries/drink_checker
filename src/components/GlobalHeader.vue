@@ -3,9 +3,9 @@
   <div class="left">
     <div class="logo text-2xl mb-4 font-sans">Cocktails</div>
   <nav class="my-2">
-    <router-link to="/" class=" text-base mr-2 cursor-pointer hover:underline transition-all">Home</router-link>
-    <router-link to="/drinks" class=" text-base mx-2 cursor-pointer hover:underline transition-all">Drinks</router-link>
-    <router-link to="/about" class=" text-base mx-2 cursor-pointer hover:underline transition-all">About</router-link>
+    <router-link to="/" class="text-lg mr-2 cursor-pointer hover:underline transition-all">Home</router-link>
+    <router-link to="/families" class=" text-lg mx-2 cursor-pointer hover:underline transition-all">Families</router-link>
+    <router-link to="/about" class=" text-lg mx-2 cursor-pointer hover:underline transition-all">About</router-link>
   </nav>
     </div>
 
