@@ -5,7 +5,9 @@ if you have a code - ie if you're within the network of bartenders trusted with 
 
 ## Project description
  Problem: Bars used specs sheets, or bartenders writing specs on menus etc which isn't always exact, gets lost, waste menus and paper. 
- Solution: This app can be accessed on any phone or computer, personalized (color theme, banner image etc), is a tool 
+ Solution: This app can be accessed on any phone or ipad and computer, personalized (color theme, banner image etc), is a tool for a handy and quick visual reference that can also be used client facing for people looking for a specific cocktails, or to try something new based on a drink they like
+ the public version has all classics and some variations (keystone style)
+ personalized versions can have current and archived menus
 
 
 ## Front End
@@ -26,4 +28,8 @@ if you have a code - ie if you're within the network of bartenders trusted with 
   - Auth / 0auth
   - firebase
   - crud function (admin)
-  - 
+
+## user journeys
+ - define admin capabilities
+ - staff
+ - public
