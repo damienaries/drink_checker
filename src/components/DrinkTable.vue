@@ -4,6 +4,7 @@
       <th>Name</th>
       <th>Ingredients</th>
       <th>Method</th>
+      <th>Glass</th>
       <th>Garnish</th>
       <th>Ice</th>
     </tr>
@@ -11,6 +12,7 @@
      <td class="table-cell">{{ drink.name }}</td>
      <td class="table-cell">{{ drink.ingredients }}</td>
      <td class="table-cell">{{ drink.method }}</td>
+     <td class="table-cell">{{ drink.glass }}</td>
      <td class="table-cell">{{ drink.garnish }}</td>
      <td class="table-cell">{{ drink.ice }}</td>
     </tr>
