@@ -13,6 +13,7 @@ import db from "./init.js";
 export default class drinkFunctions {
   static async createDrink(drink) {
     try {
+      debugger;
       await setDoc(doc(db, "drinks", drink.name), drink);
       console.log(`${drink.name} created successfully`);
     } catch (e) {

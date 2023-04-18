@@ -10,7 +10,17 @@
     </tr>
     <tr v-f="drinks" v-for="drink in drinks" :key="drink._id">
      <td class="table-cell">{{ drink.name }}</td>
-     <td class="table-cell">{{ drink.ingredients }}</td>
+     <td  
+      v-if="typeof drink.ingredients === 'object'" 
+      class="table-cell" 
+      v-for="ing in drink.ingredients" 
+      :key="ing.name">
+      <tr>
+        <td>Name: {{ ing.name }}</td>
+        <td>Quantity: {{ ing.quantity }} <span>Oz</span></td>
+      </tr>
+    </td>
+      <td v-else>{{ drink.ingredients }}</td>
      <td class="table-cell">{{ drink.method }}</td>
      <td class="table-cell">{{ drink.glass }}</td>
      <td class="table-cell">{{ drink.garnish }}</td>
@@ -20,7 +30,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import drinkFunctions from '../firebase/drinkFunctions.js';
 const { getAllDrinks }  = drinkFunctions;
 

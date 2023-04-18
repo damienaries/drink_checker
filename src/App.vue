@@ -5,7 +5,6 @@
 </template>
 
 <script setup>
-import Layout from './components/Layout.vue'
-import { onMounted } from 'vue'
+import Layout from './components/Layout.vue';
 
 </script>

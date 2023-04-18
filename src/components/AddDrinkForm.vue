@@ -21,65 +21,31 @@
           <label for="ice" class="w-1/5">ice</label>
           <input type="text" id="ice" v-model="ice" class="flex-1 ml-4">
         </div>
-        <div class="form-control items-start relative">
-          <label for="ingredients" class="w-1/5">ingredients</label>
-          <table class="w-4/5 ml-4 h-full">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Quantity</th>
-              </tr>
-            </thead>
-            <tbody class="border border-red-500 relative">
-              <tr>               
-                <td><input type="text" class="w-full my-1"></td>
-                <td><input type="text" class="w-full my-1"></td>
-              </tr>
-              <tr>               
-                <td><input type="text" class="w-full my-1"></td>
-                <td><input type="text" class="w-full my-1"></td>
-              </tr>
-              <tr>               
-                <td><input type="text" class="w-full my-1"></td>
-                <td><input type="text" class="w-full my-1"></td>
-              </tr>
-              <tr>               
-                <td><input type="text" class="w-full my-1"></td>
-                <td><input type="text" class="w-full my-1"></td>
-              </tr>
-              <tr>               
-                <td><input type="text" class="w-full my-1"></td>
-                <td><input type="text" class="w-full my-1"></td>
-              </tr>
-              <tr>
-                <button class="ml-auto bg-white rounded mt-2 px-4 py-1 text-lg" onClick="addIngredient">+</button>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <ingredients-form 
+          :model-value="ingredients"
+          @update:modelValue='newValue => ingredients = newValue'>
+      </ingredients-form>
+      
         <button class="bg-white px-4 py-1 mt-4 hover:bg-blue-100 shadow hover:shadow:lg rounded-lg w-full">Add Drink</button>
       </form>
 </template>
 
 <script setup>
 import drinkFunctions from '../firebase/drinkFunctions.js';
+import IngredientsForm from './IngredientsForm.vue';
 const {createDrink}  = drinkFunctions;
 
-async function addDrink(event) {
-  const newDrink = {
-    name: event.target.elements.name.value,
-    garnish: event.target.elements.garnish.value,
-    ice: event.target.elements.ice.value,
-    method: event.target.elements.method.value,
-    glass: event.target.elements.glass.value,
-    ingredients: event.target.elements.ingredients.value,
+async function addDrink() {
+  newDrink = {
+    name: this.name,
+    garnish: this.garnish,
+    ice: this.ice,
+    method: this.method,
+    glass: this.glass,
+    ingredients: this.ingredients,
   }
  
-  await createDrink(newDrink)
-}
-
-function addIngredient(){
-  console.log('add another ingredient')
+  await createDrink(newDrink);
 }
 
 </script>
