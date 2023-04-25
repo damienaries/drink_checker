@@ -9,27 +9,14 @@
               </tr>
             </thead>
             <tbody class="border border-red-500 relative">
-              <tr 
-                v-for="(ingredient, idx) in ingredients" 
-                :key="`ingredient-${idx}`">               
+              <tr v-for="(ingredient, idx) in ingredients" 
+                  :key="`ingredient-${idx}`">               
                 <td>
-                  <input 
-                  :value="ingredient.name"  
-                  @input="$emits('update:modelValue', $event.target.value)"
-                  type="text" 
-                  class="w-full my-1">
+                  <input class="w-1/2 py-2 p-4 m-1" type="text" :value="ingredient.name" placeholder="add ingredient">
                 </td>
                 <td>
-                  <input 
-                  :value="ingredient.quantity"  
-                  @input="$emits('update:modelValue', $event.target.value)"
-                  type="text" 
-                  class="w-full my-1">
+                  <input class="w-1/2 py-2 px-4 m-1" type="text" :value="ingredient.quantity" placeholder="add quantity">
                 </td>
-              </tr>
-              <tr class='w-full flex items-center justify-start px-2'>
-                <button class="ml-auto bg-white rounded mt-2 px-4 py-1 text-lg" onClick="addIngredient">+</button>
-                <button class="ml-auto bg-white rounded mt-2 px-4 py-1 text-lg" onClick="deleteIngredient">-</button>
               </tr>
             </tbody>
           </table>
@@ -37,18 +24,9 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
-
   const props = defineProps({
-    modelValue: Object, // ingredients[name: string, quantity: int|string]
-    emits: 'update:modelValue',
+    ingredients: Array,
   })
-
-  onMounted(() => {
-    console.log(props.modelValue);
-    for(let i = 0; i < 5; i++){
-      props.modelValue += {name: '', quantity: ''}
-    }
-  })
+  defineEmits(['update:ingredients'])
 
 </script>

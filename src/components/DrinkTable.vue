@@ -1,5 +1,5 @@
 <template>
-  <table class="w-11/12 my-8 mx-auto bg-gray-100 shadow-lg rounded p-4">
+  <table v-if="drinks" class="w-11/12 my-8 mx-auto bg-gray-100 shadow-lg rounded p-4">
     <tr>
       <th>Name</th>
       <th>Ingredients</th>
@@ -8,10 +8,10 @@
       <th>Garnish</th>
       <th>Ice</th>
     </tr>
-    <tr v-f="drinks" v-for="drink in drinks" :key="drink._id">
+    <tr  v-for="drink in drinks" :key="drink._id">
      <td class="table-cell">{{ drink.name }}</td>
      <td  
-      v-if="typeof drink.ingredients === 'object'" 
+     v-if="typeof drink.ingredients === 'object'" 
       class="table-cell" 
       v-for="ing in drink.ingredients" 
       :key="ing.name">
