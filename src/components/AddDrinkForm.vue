@@ -6,10 +6,6 @@
           <input type="text" id="name" v-model="newDrink.name" class="flex-1 ml-4">
         </div>
         <div class="form-control">
-          <label for="garnish" class="w-1/5">garnish</label>
-          <input type="text" id="garnish" v-model="newDrink.garnish" class="flex-1 ml-4">
-        </div>
-        <div class="form-control">
           <label for="method" class="w-1/5">method</label>
           <input type="text" id="method" v-model="newDrink.method" class="flex-1 ml-4">
         </div>
@@ -21,10 +17,32 @@
           <label for="ice" class="w-1/5">ice</label>
           <input type="text" id="ice" v-model="newDrink.ice" class="flex-1 ml-4">
         </div>
-        <ingredients-form 
-          v-model:ingredients="newDrink.ingredients">
-        </ingredients-form>
-      
+        <div class="form-control">
+          <label for="garnish" class="w-1/5">garnish</label>
+          <input type="text" id="garnish" v-model="newDrink.garnish" class="flex-1 ml-4">
+        </div>
+        <div class="form-control">
+        <label for="ingredients" class="w-1/5">ingredients</label>
+          <table class="w-4/5 ml-4 h-full">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody class="border border-red-500 relative">
+              <tr v-for="(ingredient, idx) in newDrink.ingredients" 
+                        :key="idx">               
+                      <td>
+                        <input class="py-2 p-4 m-1" type="text" v-model="ingredient.name" placeholder="add ingredient">
+                      </td>
+                      <td>
+                        <input class="py-2 px-4 m-1" type="text" v-model="ingredient.quantity" placeholder="add quantity">
+                      </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <button class="bg-white px-4 py-1 mt-4 hover:bg-blue-100 shadow hover:shadow:lg rounded-lg w-full">Add Drink</button>
       </form>
 </template>
@@ -32,28 +50,25 @@
 <script setup>
 import { ref } from 'vue';
 import drinkFunctions from '../firebase/drinkFunctions.js';
-import IngredientsForm from './IngredientsForm.vue';
 const {createDrink}  = drinkFunctions;
 
   const newDrink = ref({
-    name: null,
-    garnish: null,
+    name: '',
+    garnish: '',
     ice: null,
     method: null,
-    glass: null,
+    glass: '',
     ingredients: [
-      {name: null, quantity: null},
-      {name: null, quantity: null},
-      {name: null, quantity: null},
-      {name: null, quantity: null},
-      {name: null, quantity: null}
+      {name: '', quantity: ''},
+      {name: '', quantity: ''},
+      {name: '', quantity: ''},
+      {name: '', quantity: ''},
+      {name: '', quantity: ''}
     ],
   }
 )
 
 async function addDrink() {
-  debugger
-
  
   await createDrink(newDrink.value);
 }

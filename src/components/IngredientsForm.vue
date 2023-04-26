@@ -10,7 +10,7 @@
             </thead>
             <tbody class="border border-red-500 relative">
               <tr v-for="(ingredient, idx) in ingredients" 
-                  :key="`ingredient-${idx}`">               
+                  :key="idx">               
                 <td>
                   <input class="w-1/2 py-2 p-4 m-1" type="text" :value="ingredient.name" placeholder="add ingredient">
                 </td>
