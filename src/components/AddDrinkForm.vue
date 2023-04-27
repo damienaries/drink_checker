@@ -6,16 +6,25 @@
           <input type="text" id="name" v-model="newDrink.name" class="flex-1 ml-4">
         </div>
         <div class="form-control">
-          <label for="method" class="w-1/5">method</label>
-          <input type="text" id="method" v-model="newDrink.method" class="flex-1 ml-4">
-        </div>
-        <div class="form-control">
           <label for="glass" class="w-1/5">Glass</label>
           <input type="text" id="glass" v-model="newDrink.glass" class="flex-1 ml-4">
         </div>
         <div class="form-control">
+          <label for="method" class="w-1/5">method</label>
+          <select id="method" v-model="newDrink.method" class="flex-1 ml-4">
+            <option>Shake</option>
+            <option>Stir</option>
+            <option>Build</option>
+            <option>Dry Shake</option>
+          </select>
+        </div>
+        <div class="form-control">
           <label for="ice" class="w-1/5">ice</label>
-          <input type="text" id="ice" v-model="newDrink.ice" class="flex-1 ml-4">
+          <select id="ice" v-model="newDrink.ice" class="flex-1 ml-4">
+            <option>cube</option>
+            <option>crushed</option>
+            <option>up</option>
+          </select>
         </div>
         <div class="form-control">
           <label for="garnish" class="w-1/5">garnish</label>
@@ -32,13 +41,13 @@
             </thead>
             <tbody class="border border-red-500 relative">
               <tr v-for="(ingredient, idx) in newDrink.ingredients" 
-                        :key="idx">               
-                      <td>
-                        <input class="py-2 p-4 m-1" type="text" v-model="ingredient.name" placeholder="add ingredient">
-                      </td>
-                      <td>
-                        <input class="py-2 px-4 m-1" type="text" v-model="ingredient.quantity" placeholder="add quantity">
-                      </td>
+                  :key="idx">               
+                <td>
+                  <input class="py-2 p-4 m-1" type="text" v-model="ingredient.name" placeholder="add ingredient">
+                </td>
+                <td>
+                  <input class="py-2 px-4 m-1" type="text" v-model="ingredient.quantity" placeholder="add quantity">
+                </td>
               </tr>
             </tbody>
           </table>
@@ -55,7 +64,7 @@ const {createDrink}  = drinkFunctions;
   const newDrink = ref({
     name: '',
     garnish: '',
-    ice: null,
+    ice: '',
     method: null,
     glass: '',
     ingredients: [
@@ -69,8 +78,30 @@ const {createDrink}  = drinkFunctions;
 )
 
 async function addDrink() {
+  // only send ingredients needed
+  newDrink.value.ingredients = newDrink.value.ingredients.filter(i => i.name !== '' || i.quantity !== '')
  
-  await createDrink(newDrink.value);
+  // save to db
+  await createDrink(newDrink.value).then(() => {
+    clearForm();
+  })
+}
+
+const clearForm = () => {
+  newDrink.value = {
+    name: '',
+    garnish: '',
+    ice: '',
+    method: null,
+    glass: '',
+    ingredients: [
+      {name: '', quantity: ''},
+      {name: '', quantity: ''},
+      {name: '', quantity: ''},
+      {name: '', quantity: ''},
+      {name: '', quantity: ''}
+    ],
+  }
 }
 
 </script>

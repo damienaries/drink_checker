@@ -1,5 +1,5 @@
 <template>
-  <table v-if="drinks" class="w-11/12 my-8 mx-auto bg-gray-100 shadow-lg rounded p-4">
+  <table v-if="drinks" class="w-full lg:w-11/12 my-8 mx-auto bg-gray-100 shadow-lg rounded p-4">
     <tr>
       <th>Name</th>
       <th>Ingredients</th>
@@ -8,19 +8,16 @@
       <th>Garnish</th>
       <th>Ice</th>
     </tr>
-    <tr  v-for="drink in drinks" :key="drink._id">
-     <td class="table-cell">{{ drink.name }}</td>
-     <td  
-     v-if="typeof drink.ingredients === 'object'" 
-      class="table-cell" 
-      v-for="ing in drink.ingredients" 
-      :key="ing.name">
-      <tr>
-        <td>Name: {{ ing.name }}</td>
-        <td>Quantity: {{ ing.quantity }} <span>Oz</span></td>
-      </tr>
-    </td>
-      <td v-else>{{ drink.ingredients }}</td>
+    <tr v-for="drink in drinks" :key="drink._id">
+      <td class="table-cell text-lg">{{ drink.name }}</td>
+      <td class="table-cell" >
+        <tr v-for="ing in drink.ingredients" 
+          :key="ing.name"
+          class="w-full flex items-center justify-between">
+          <td class="flex-1">{{ ing.name }}</td>
+          <td class="w-1/3">{{ ing.quantity }} <span>Oz</span></td>
+        </tr>
+      </td>
      <td class="table-cell">{{ drink.method }}</td>
      <td class="table-cell">{{ drink.glass }}</td>
      <td class="table-cell">{{ drink.garnish }}</td>
@@ -44,6 +41,8 @@ onMounted(() => {
 <style scoped>
 .table-cell {
   border: 1px solid #ddd;
-  padding: .25rem .1rem;
+  padding: .5rem 1rem;
+  background: #fff;
+  text-align: left;
   }
 </style>
