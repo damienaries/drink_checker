@@ -1,4 +1,4 @@
-import { collection, doc, getDocs, query, setDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc } from "firebase/firestore";
 import db from "./init.js";
 
 // Follow this pattern for other Models
@@ -6,15 +6,16 @@ import db from "./init.js";
  * TODO
  *  Create OK
  *  update
- *  Read
+ *  Read all OK
+ *  read one
  *  Delete
  */
 
 export default class drinkFunctions {
   static async createDrink(drink) {
     try {
-      await setDoc(doc(db, "drinks", drink.name), drink);
-      console.log(`${drink.name} created successfully`);
+      const d = await addDoc(collection(db, "drinks"), { ...drink });
+      console.log(`${drink.name} created successfully with id ${d.id}`);
     } catch (e) {
       console.log("error creating drink", e);
     }
@@ -24,8 +25,24 @@ export default class drinkFunctions {
   static async getAllDrinks() {
     const drinks = [];
     const querySnap = await getDocs(query(collection(db, "drinks")));
-
-    querySnap.forEach((doc) => drinks.push(doc.data()));
+    querySnap.forEach((doc) => {
+      drinks.push(doc.data());
+    });
     return drinks;
+  }
+
+  static async updateDrink(drink) {
+    const drinkRef = doc(db);
+    await updateDoc(drinkRef, {});
+  }
+
+  static async deleteDrink(id) {
+    try {
+      debugger;
+      await deleteDoc(db, "drinks", id);
+      console.log(`${drink.name} deleted successfully`);
+    } catch (e) {
+      console.log("error deleting drink", e);
+    }
   }
 }

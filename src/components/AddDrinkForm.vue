@@ -39,7 +39,7 @@
                 <th>Quantity</th>
               </tr>
             </thead>
-            <tbody class="border border-red-500 relative">
+            <tbody class="shadow">
               <tr v-for="(ingredient, idx) in newDrink.ingredients" 
                   :key="idx">               
                 <td>

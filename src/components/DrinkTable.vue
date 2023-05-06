@@ -22,6 +22,18 @@
      <td class="table-cell">{{ drink.glass }}</td>
      <td class="table-cell">{{ drink.garnish }}</td>
      <td class="table-cell">{{ drink.ice }}</td>
+     <td class="table-cell">
+      <button 
+        class="p-2 m-2 bg-green-200 text-sm hover:text-green-800" 
+        @click.prevent="editDrink(drink)">
+        Edit
+      </button>
+      <button 
+        class="p-2 bg-red-200 text-sm hover:text-red-800"
+        @click.prevent="deleteDrink(drink.id)">
+        Delete
+      </button>
+     </td>
     </tr>
   </table>
 </template>
@@ -29,13 +41,20 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import drinkFunctions from '../firebase/drinkFunctions.js';
-const { getAllDrinks }  = drinkFunctions;
+const { getAllDrinks, updateDrink, deleteDrink }  = drinkFunctions;
 
 const drinks = ref(null) 
 
 onMounted(() => {
   getAllDrinks().then(res => drinks.value = res);
 })
+
+async function editDrink(newDrink){
+  console.log(newDrink);
+  //open addrink form in modal with current values? edit in place if possible
+// on save -> 
+  await updateDrink(newDrink);
+}
 </script>
 
 <style scoped>
