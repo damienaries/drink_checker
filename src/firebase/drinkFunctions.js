@@ -1,48 +1,55 @@
-import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc } from "firebase/firestore";
-import db from "./init.js";
+import { collection, deleteDoc, doc, getDoc, getDocs, query } from "firebase/firestore";
+import db from "../firebase/init";
 
-// Follow this pattern for other Models
+// Follow this pattern for other Models || make functions more general, abstract collection name and pass down from component
 /******
  * TODO
  *  Create OK
  *  update
  *  Read all OK
- *  read one
- *  Delete
+ *  read one OK
+ *  Delete OK
  */
 
 export default class drinkFunctions {
-  static async createDrink(drink) {
-    try {
-      const d = await addDoc(collection(db, "drinks"), { ...drink });
-      console.log(`${drink.name} created successfully with id ${d.id}`);
-    } catch (e) {
-      console.log("error creating drink", e);
-    }
-  }
-
   //query(collectionReference, queryFilter())
   static async getAllDrinks() {
     const drinks = [];
     const querySnap = await getDocs(query(collection(db, "drinks")));
     querySnap.forEach((doc) => {
-      drinks.push(doc.data());
+      drinks.push({ ...doc.data(), id: doc.id });
     });
     return drinks;
   }
 
+  static async getDrink(id) {
+    const docRef = doc(db, "drinks", id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      console.log("No such document!");
+    }
+  }
+
   static async updateDrink(drink) {
-    const drinkRef = doc(db);
-    await updateDoc(drinkRef, {});
+    const drinkRef = doc(db, "drinks", drink.id);
+    try {
+      await setDoc(drinkRef, { ...drink }).then(() => {
+        console.log(`drink with id ${drink.id} updated`);
+      });
+    } catch (e) {
+      console.log(`error updating drink with id ${drink.id}`, e);
+    }
   }
 
   static async deleteDrink(id) {
     try {
-      debugger;
-      await deleteDoc(db, "drinks", id);
-      console.log(`${drink.name} deleted successfully`);
+      await deleteDoc(doc(db, "drinks", id)).then(() => {
+        console.log(`drink with id ${id} deleted`);
+      });
     } catch (e) {
-      console.log("error deleting drink", e);
+      console.log(`error deleting drink with id ${id}`, e);
     }
   }
 }

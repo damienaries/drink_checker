@@ -6,7 +6,6 @@
 </template>
 
 <script setup>
-import cocktails from '../assets/data/cocktails.js'; // data placeholder
 import CocktailList from '../components/CocktailList.vue';
 import Variations from '../components/Variations.vue'; // pass families array to loop over
 

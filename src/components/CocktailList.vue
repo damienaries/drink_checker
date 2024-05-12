@@ -1,7 +1,9 @@
 <script setup>
+import { onMounted, ref } from 'vue';
 import cocktails from '../assets/data/cocktails.js';
+import drinkFunctions from '../firebase/drinkFunctions.js';
 import DrinkModal from './DrinkModal.vue';
-import {onMounted, ref} from 'vue';
+const { getAllDrinks }  = drinkFunctions;
 
 let showModal = ref(false);
 let cocktailOpened = ref(null);
@@ -10,6 +12,12 @@ function open(drink){
   showModal.value = true;
   cocktailOpened.value = drink;
 }
+
+onMounted(() => {
+  let dbCocktails = getAllDrinks();
+  console.log(dbCocktails)
+})
+
 
 </script>
 

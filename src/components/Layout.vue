@@ -7,8 +7,8 @@
 </template>
 
 <script setup>
-import GlobalHeader from './GlobalHeader.vue';
 import GlobalFooter from './GlobalFooter.vue';
+import GlobalHeader from './GlobalHeader.vue';
 
 
 </script>

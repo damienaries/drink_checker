@@ -57,9 +57,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import drinkFunctions from '../firebase/drinkFunctions.js';
-const {createDrink}  = drinkFunctions;
+import { addDoc, collection } from "firebase/firestore";
+import { onMounted, ref } from 'vue';
+import db from "../firebase/init";
 
   const newDrink = ref({
     name: '',
@@ -77,14 +77,20 @@ const {createDrink}  = drinkFunctions;
   }
 )
 
+onMounted(() => {
+  document.addEventListener('keydown', (event) => {
+    if(event.keyCode === 13) return;
+  })
+})
+
 async function addDrink() {
   // only send ingredients needed
   newDrink.value.ingredients = newDrink.value.ingredients.filter(i => i.name !== '' || i.quantity !== '')
- 
   // save to db
-  await createDrink(newDrink.value).then(() => {
+  await addDoc(collection(db, "drinks"), { ...newDrink.value }).then(docRef => {
+    console.log("Document written with ID: ", docRef.id);
     clearForm();
-  })
+  });
 }
 
 const clearForm = () => {
