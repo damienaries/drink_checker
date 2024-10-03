@@ -10,8 +10,8 @@
 </template>
 
 <script setup>  
-import AddDrinkForm from '../components/AddDrinkForm.vue';
-import DrinkTable from '../components/DrinkTable.vue';
+import AddDrinkForm from '../components/admin/AddDrinkForm.vue';
+import DrinkTable from '../components/admin/DrinkTable.vue';
 
 </script>
 

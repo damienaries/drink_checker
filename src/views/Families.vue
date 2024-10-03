@@ -15,7 +15,7 @@
  * horizontal scroll drink variations cards
  * use poster for 1st card
  */
-const families = ['sour', 'smash', 'manhattan'];
+const families = ['sour', 'collins', 'gimlet', 'daiquiri', 'martini', 'manhattan', 'old fashioned'];
 </script>
 
 <style lang="scss" scoped>

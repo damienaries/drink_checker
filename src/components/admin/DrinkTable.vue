@@ -76,7 +76,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import drinkFunctions from '../firebase/drinkFunctions.js';
+import drinkFunctions from '../../firebase/drinkFunctions.js';
 const { getAllDrinks, updateDrink, deleteDrink, getDrink }  = drinkFunctions;
 
 const drinks = ref(null);
