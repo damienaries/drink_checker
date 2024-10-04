@@ -40,7 +40,11 @@
             <option>Sour</option>
             <option>Collins</option>
             <option>gimlet</option>
+            <option>Rickey</option>
             <option>Daiquiri</option>
+            <option>sidecar</option>
+            <option>caipirinha</option>
+            <option>smash</option>
             <option>Martini</option>
             <option>Manhattan</option>
             <option>Old Fashioned</option>

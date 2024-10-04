@@ -1,5 +1,6 @@
 <template>
-  <div style="max-width: 1500px" class="h-full flex">
+  <div style="max-width: 1500px" class="flex gap-2">
+    <!-- Filter and search bar -->
     <cocktail-list></cocktail-list>
     <variations :families="families"></variations>
   </div>
@@ -7,8 +8,8 @@
 
 <script setup>
 import CocktailList from '../components/CocktailList.vue';
-import Variations from '../components/Variations.vue'; // pass families array to loop over
+import Variations from '../components/Variations.vue';
 
-const families = ['sour', 'smash', 'manhattan']; // todo add famility to each cocktail
+const families = ['sour', 'collins', 'gimlet', 'rickey', 'daiquiri', 'sidecar', 'caipirinha', 'smash', 'martini', 'manhattan', 'old fashioned'];
 
 </script>
