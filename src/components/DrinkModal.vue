@@ -20,15 +20,17 @@
           </ul>
         </div>
       </div>
-      <button 
-        class="md:absolute text-black text-center top-0 right-0 px-6 py-1 rounded m-2 bg-blue-100 hover:bg-blue-200 text-black" 
-        @click="$emit('closeModal')">Close</button>
+      <button-component :fill="true" @click="$emit('closeModal')">
+        Close
+      </button-component>
       </div>
   </div>
 </template>
 
 <script setup>
-import {onMounted, computed, ref} from 'vue';
+import { computed, ref } from 'vue';
+import ButtonComponent from './atoms/ButtonComponent.vue';
+
 const props = defineProps({
   drink: Object,
 })

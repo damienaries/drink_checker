@@ -52,7 +52,9 @@
         </div>
         <div class="form-control relative">
           <div class="flex absolute left-0 bottom-0">
-            <button class="px-4 py-2 rounded-md bg-slate-300 hover:bg-slate-400">Switch to {{ newDrink.unit === 'oz'? 'ml' : 'oz' }}</button>
+            <button-component style="secondary" :fill="false">
+              Switch to {{ newDrink.unit === 'oz'? 'ml' : 'oz' }}
+            </button-component>
           </div>
         <label for="ingredients" class="w-1/5">ingredients</label>
           <table class="w-4/5 ml-4 h-full">
@@ -80,7 +82,7 @@
             </tbody>
           </table>
         </div>
-        <button class="bg-white px-4 py-1 mt-4 hover:bg-blue-100 shadow hover:shadow:lg rounded-lg w-full">Add Drink</button>
+        <button-component :fill="true">Add Drink</button-component>
       </form>
 </template>
 
@@ -88,6 +90,8 @@
 import { addDoc, collection } from "firebase/firestore";
 import { onMounted, ref } from 'vue';
 import db from "../../firebase/init";
+
+import ButtonComponent from '../atoms/ButtonComponent.vue';
 
 const emptyForm = {
     name: null,
