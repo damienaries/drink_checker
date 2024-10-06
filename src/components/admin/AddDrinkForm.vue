@@ -36,7 +36,7 @@
         </div>
         <div class="form-control">
           <label for="family" class="w-1/5">family</label>
-          <select type="text" id="family" v-model="newDrink.family" class="flex-1 ml-4">
+          <select id="family" v-model="newDrink.family" class="flex-1 ml-4">
             <option>Sour</option>
             <option>Collins</option>
             <option>gimlet</option>
@@ -52,7 +52,7 @@
         </div>
         <div class="form-control relative">
           <div class="flex absolute left-0 bottom-0">
-            <button-component style="secondary" :fill="false">
+            <button-component color="secondary" :fill="false" @click.prevent="toggleUnit">
               Switch to {{ newDrink.unit === 'oz'? 'ml' : 'oz' }}
             </button-component>
           </div>
@@ -131,6 +131,12 @@ async function addDrink() {
 
 const clearForm = () => {
   newDrink.value = emptyForm;
+}
+
+
+const toggleUnit = () => {
+  console.log(newDrink.unit === 'oz'? 'ml' : 'oz');
+  // return newDrink.unit === 'oz'? 'ml' : 'oz';
 }
 
 </script>

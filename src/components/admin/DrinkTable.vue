@@ -23,16 +23,8 @@
      <td class="table-cell">{{ drink.garnish }}</td>
      <td class="table-cell">{{ drink.ice }}</td>
      <td class="table-cell">
-      <button 
-        class="p-2 m-2 bg-green-200 text-sm hover:text-green-800" 
-        @click.prevent="editDrink(drink.id)">
-        Edit
-      </button>
-      <button 
-        class="p-2 bg-red-200 text-sm hover:text-red-800"
-        @click.prevent="deleteDrink(drink.id)">
-        Delete
-      </button>
+      <button-component @click.prevent="editDrink(drink.id)">Edit</button-component>
+      <button-component @click.prevent="deleteDrink(drink.id)" color="secondary">Delete</button-component>
      </td>
     </tr>
   </table>
@@ -78,6 +70,8 @@
 import { onMounted, ref } from 'vue';
 import drinkFunctions from '../../firebase/drinkFunctions.js';
 const { getAllDrinks, updateDrink, deleteDrink, getDrink }  = drinkFunctions;
+
+import ButtonComponent from '../atoms/ButtonComponent.vue';
 
 const drinks = ref(null);
 const editMode = ref(null);

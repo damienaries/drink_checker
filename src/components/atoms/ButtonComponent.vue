@@ -13,8 +13,11 @@
 import { computed } from 'vue';
 
 const props = defineProps({
-  href: String|null,
-  style: {
+  href: {
+    type: String,
+    default: null
+  },
+  color: {
     type: String,
     default: 'primary'
   },
@@ -27,16 +30,20 @@ const props = defineProps({
 const emit = defineEmits(['click']);
 
 const buttonClass = computed(() => {
-  switch(props.style){
-    case 'primary':
-      return 'text-black text-center top-0 right-0 px-6 py-1 rounded m-2 bg-blue-100 hover:bg-blue-200';
-      break;
-    case 'secondary':
-      return 'w-full p-2 m-2 bg-blue-500 text-sm hover:bg-blue-600 text-white';
-      break;
-    default:
-      return 'text-red-500 text-center top-0 right-0 px-6 py-1 rounded bg-blue-100 hover:bg-blue-200'
+  // set style for all buttons
+  // then update for each style and depending on fill prop
+  let classes = 'px-6 py-1 rounded text-center hover:shadow transition-all duration-300';
+
+  if(props.color === 'primary') {
+    classes += ' text-black bg-blue-100 hover:bg-blue-200';
   }
+  if(props.color === 'secondary') {
+    classes += ' text-white bg-blue-500 hover:bg-blue-600'
+  }
+
+  classes += props.fill ?  ' w-full' :  'w-fit';
+
+  return classes;
 })
 
 const handleClick = (e) => {
