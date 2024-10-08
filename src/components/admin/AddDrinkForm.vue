@@ -121,9 +121,10 @@ onMounted(() => {
 
 async function addDrink() {
   // only send ingredients needed
-  newDrink.value.ingredients = newDrink.value.ingredients.filter(i => i.name !== '')
+  newDrink.value.ingredients = newDrink.value.ingredients.filter(i => i.name !== null && i.quantity !== null)
   // save to db
   await addDoc(collection(db, "drinks"), { ...newDrink.value }).then(docRef => {
+    // flash message confirm action success
     console.log("Document written with ID: ", docRef.id);
     clearForm();
   });
@@ -133,10 +134,8 @@ const clearForm = () => {
   newDrink.value = emptyForm;
 }
 
-
 const toggleUnit = () => {
-  console.log(newDrink.unit === 'oz'? 'ml' : 'oz');
-  // return newDrink.unit === 'oz'? 'ml' : 'oz';
+  newDrink.value.unit = newDrink.value.unit === 'oz'? 'ml' : 'oz';
 }
 
 </script>

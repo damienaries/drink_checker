@@ -40,6 +40,9 @@ const buttonClass = computed(() => {
   if(props.color === 'secondary') {
     classes += ' text-white bg-blue-500 hover:bg-blue-600'
   }
+  if(props.color === 'danger'){
+    classes += ' text-white bg-red-300 hover:bg-red-400'
+  }
 
   classes += props.fill ?  ' w-full' :  'w-fit';
 
