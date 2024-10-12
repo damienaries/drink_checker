@@ -34,6 +34,7 @@ function open(drink){
       </div>
     </figure>
   </div>
+  
   <DrinkModal 
     v-if="showModal" 
     @close-modal="showModal = false" 

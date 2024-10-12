@@ -1,22 +1,10 @@
 <template>
-  <div v-if="isOpen" class="modal-overlay" @click.self="closeModal">
+  <div class="overlay fixed z-100 inset-0 h-screen w-screen bg-gray-900/50 flex items-center justify-center transition-all duration-300" @click.self="closeModal">
     <div class="modal-content">
-      <header>
-        <slot name="header">
-          <h3>Default Header</h3>
-        </slot>
+      <header class="hidden">
         <button @click="closeModal">&times;</button>
       </header>
-      <section>
-        <slot>
-          <p>Default content of the modal.</p>
-        </slot>
-      </section>
-      <footer>
-        <slot name="footer">
-          <button @click="closeModal">Close</button>
-        </slot>
-      </footer>
+        <slot />
     </div>
   </div>
 </template>

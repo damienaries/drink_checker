@@ -1,5 +1,5 @@
 <template>
-  <div class='overlay fixed z-100 inset-0 h-screen w-screen bg-gray-900 flex items-center justify-center transition-all duration-300'>
+  <div class='overlay fixed z-100 inset-0 h-screen w-screen bg-gray-900/50 flex items-center justify-center transition-all duration-300'>
       <div class="modal-content w-full m-4 h-fit md:w-3/4 md:h-3/4 py-4 px-4 md:px-6 bg-white rounded flex flex-col md:flex-row relative overflow-y-scroll">
       <div class="img-placeholder w-full md:w-1/2 mr-4 overflow-hidden max-h-72 md:max-h-full shadow-lg rounded">
         <img :src="drink.imageUrl" />
