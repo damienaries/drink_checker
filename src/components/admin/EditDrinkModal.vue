@@ -1,5 +1,5 @@
 <template>
-  <modal :is-open="drink !== null" v-if="drink">
+  <modal ref="editDrink" @modal-close="$emit('modal-close')">
     <form class="border border-black p-12">
       <h2>Edit Mode for {{ drink.name }}</h2>
       <table class="w-full lg:w-11/12 my-8 mx-auto bg-gray-100 shadow-lg rounded p-4">
@@ -38,10 +38,17 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue';
 import Modal from '../atoms/Modal.vue';
 
 const props = {
   drink: Object,
 }
+
+const editDrink = ref(null);
+
+onMounted(() => {
+  editDrink.value?.openModal();
+})
 
 </script>

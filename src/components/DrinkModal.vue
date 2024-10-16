@@ -1,41 +1,41 @@
 <template>
-  <div class='overlay fixed z-100 inset-0 h-screen w-screen bg-gray-900/50 flex items-center justify-center transition-all duration-300'>
-      <div class="modal-content w-full m-4 h-fit md:w-3/4 md:h-3/4 py-4 px-4 md:px-6 bg-white rounded flex flex-col md:flex-row relative overflow-y-scroll">
-      <div class="img-placeholder w-full md:w-1/2 mr-4 overflow-hidden max-h-72 md:max-h-full shadow-lg rounded">
-        <img :src="drink.imageUrl" />
+  <modal ref="drinkModal" @modal-close="$emit('modal-close')">
+    <div class="flex flex-col md:flex-row gap-2">
+      <div class="img-placeholder w-full md:w-1/2 mr-4 overflow-hidden h-72 md:max-h-full shadow-lg rounded">
+      <img :src="drink.imageUrl" />
       </div>
-      <div class="w-full md:w-1/2 py-4 md:px-4">
+      <div class="w-full md:w-1/2 py-4 md:px-4 border">
         <h3 class="text-xl uppercase mb-2">{{drink.name}}</h3>
         <p class="capitalize">{{build}}</p>
         <p class="capitalize">{{ garnishes }}</p>
-        <div class="mt-4">
-          <ul class="pt-8 pb-4 relative">
-            <div class="absolute top-0 text-xs right-0 px-2 py-1 rounded-full bg-gray-100" @click.prevent="isMetric = !isMetric">oz / cl</div>
-            <li v-for="(ingredient, idx) in drink.ingredients" :key="idx" class="flex items-center justify-between p-1">
-              <span>{{ ingredient.name }}</span>
-              <span>
-                {{ isMetric === true ? ingredient.quantity*3 : ingredient.quantity }} {{ unit }}
-              </span>
-            </li>
-          </ul>
-        </div>
+        <ul class="pt-8 pb-4 relative">
+          <div class="absolute top-0 text-xs right-0 px-2 py-1 rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer" @click.prevent="isMetric = !isMetric">oz / cl</div>
+          <li v-for="(ingredient, idx) in drink.ingredients" :key="idx" class="flex items-center justify-between p-1">
+            <span>{{ ingredient.name }}</span>
+            <span>
+              {{ isMetric === true ? ingredient.quantity*3 : ingredient.quantity }} {{ unit }}
+            </span>
+          </li>
+        </ul>
       </div>
-      <button-component :fill="true" @click="$emit('closeModal')">
-        Close
-      </button-component>
-      </div>
-  </div>
+    </div>
+  </modal>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
-import ButtonComponent from './atoms/ButtonComponent.vue';
+import { computed, onMounted, ref } from 'vue';
+import Modal from './atoms/Modal.vue';
 
 const props = defineProps({
   drink: Object,
 })
 
+const drinkModal = ref(null);
 const isMetric = ref(false);
+
+onMounted(() => {
+  drinkModal.value?.openModal();
+})
  
 const build = computed(() => {
 if (typeof props.drink.method === 'string'){
@@ -53,7 +53,7 @@ const garnishes = computed(() => {
 
 const unit = computed(() => {
 // todo display pretty value
-  return isMetric.value === true ? 'cl' : 'oz'
+  return isMetric.value === true ? 'cl' : 'oz';
 })
 
 </script>

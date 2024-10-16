@@ -1,55 +1,38 @@
 <template>
-  <div class="overlay fixed z-100 inset-0 h-screen w-screen bg-gray-900/50 flex items-center justify-center transition-all duration-300" @click.self="closeModal">
-    <div class="modal-content">
-      <header class="hidden">
+  <div v-if="show" class="overlay fixed z-100 inset-0 h-screen w-screen bg-gray-900/75 flex items-center justify-center transition-all duration-300" @click.stop="closeModal">
+    <div class="modal-content w-full md:w-3/4 max-w-[800px] m-4 h-screen md:h-fit md:max-h-[800px] py-4 px-4 md:px-6 bg-white rounded relative overflow-y-scroll">
+      <header class="p-4 bg-white flex justify-end">
         <button @click="closeModal">&times;</button>
       </header>
-        <slot />
+      <slot />
+
+      <footer class="w-full mt-4">
+        <button-component :fill="true" @click="closeModal">
+          Close
+        </button-component>
+      </footer>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { defineExpose, ref } from 'vue';
 
-const props = {
-  isOpen: {
-    type: Boolean,
-    default: false,
-  }
-}
-
+import ButtonComponent from './ButtonComponent.vue';
 const show = ref(false);
 
-const closeModal = () => {
+const emit = defineEmits(['modal-close'])
+
+function openModal() {
+  show.value = true;
+}
+
+function closeModal() {
+  emit('modal-close')
   show.value = false;
 }
+
+defineExpose({
+  openModal, closeModal
+})
 </script>
-
-<style scoped>
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  position: relative;
-  width: 500px;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-</style>

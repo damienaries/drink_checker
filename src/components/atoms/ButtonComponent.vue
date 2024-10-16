@@ -32,7 +32,7 @@ const emit = defineEmits(['click']);
 const buttonClass = computed(() => {
   // set style for all buttons
   // then update for each style and depending on fill prop
-  let classes = 'px-6 py-1 rounded text-center hover:shadow transition-all duration-300';
+  let classes = 'px-6 py-1 rounded text-center hover:shadow transition-all duration-300 max-h-8';
 
   if(props.color === 'primary') {
     classes += ' text-black bg-blue-100 hover:bg-blue-200';

@@ -5,13 +5,11 @@ import drinkFunctions from '../firebase/drinkFunctions.js';
 import DrinkModal from './DrinkModal.vue';
 const { getAllDrinks }  = drinkFunctions;
 
-const showModal = ref(false);
 const cocktailOpened = ref(null);
 
-function open(drink){
-  showModal.value = true;
+function showDrinkDetails(drink){
   cocktailOpened.value = drink;
-}
+  }
 
 // onMounted(() => {
 //   let dbCocktails = getAllDrinks();
@@ -26,7 +24,7 @@ function open(drink){
     <figure class="relative z-5 w-full h-80 md:h-52 p-2 m-2 rounded hover:shadow-lg transition-all duration-200 overflow-hidden cursor-pointer" 
       v-for='cocktail in cocktails' 
       :key='cocktail.name'
-      @click.prevent="open(cocktail)"
+      @click.prevent="showDrinkDetails(cocktail)"
       >
       <div class="absolute h-full w-full top-0 left-0 hover:scale-110 active:scale-110 transition duration-500 flex items-center justify-center bg-cover" 
       :style="{backgroundImage: `linear-gradient(to right, rgba(0,0,0,.5), rgba(0,0,0,.5)), url(${cocktail.imageUrl})`}">
@@ -34,10 +32,10 @@ function open(drink){
       </div>
     </figure>
   </div>
-  
+
   <DrinkModal 
-    v-if="showModal" 
-    @close-modal="showModal = false" 
-    :drink="cocktailOpened">
+  :drink="cocktailOpened"
+   v-if="cocktailOpened" 
+   @modal-close="cocktailOpened = null">
   </DrinkModal>
 </template>
