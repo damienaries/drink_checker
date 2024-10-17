@@ -23,17 +23,17 @@
      <td class="table-cell">{{ drink.glass }}</td>
      <td class="table-cell">{{ drink.garnish }}</td>
      <td class="table-cell">{{ drink.ice }}</td>
-     <td class="table-cell space-x-4">
-      <button-component @click.prevent="drinkToEdit.value = drink">Edit</button-component>
-      <button-component @click.prevent="deleteDrink(drink.id)" color="danger">Delete</button-component>
+     <td class="table-cell space-y-4">
+      <button-component @click.prevent="drinkToEdit = drink" :fill="true">Edit</button-component>
+      <button-component @click.prevent="deleteDrink(drink.id)" color="danger" :fill="true">Delete</button-component>
      </td>
     </tr>
   </table>
 
   <edit-drink-modal 
-    v-if="drinkToEdit !== null"
+     v-if="drinkToEdit"
      :drink="drinkToEdit"
-     @close-modal="drinkToEdit = null">
+     @modal-clo="drinkToEdit = null">
   </edit-drink-modal>
 </template>
 

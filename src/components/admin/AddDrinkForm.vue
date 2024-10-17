@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="addDrink" class="p-4 mx-auto w-full lg:w-2/3 shadow-lg rounded m-12 bg-gray-100/50">
+  <form @submit.prevent="addDrink" class="p-8 mx-auto lg:w-2/3 shadow-lg rounded m-12 bg-gray-100/50">
         <h4 class="text-lg">Add cocktail to db</h4>
         <div class="form-control">
           <label for="name" class="w-1/5">Name</label>

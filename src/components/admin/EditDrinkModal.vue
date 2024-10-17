@@ -1,6 +1,6 @@
 <template>
   <modal ref="editDrink" @modal-close="$emit('modal-close')">
-    <form class="border border-black p-12">
+    <form class="border border-black p-4">
       <h2>Edit Mode for {{ drink.name }}</h2>
       <table class="w-full lg:w-11/12 my-8 mx-auto bg-gray-100 shadow-lg rounded p-4">
         <tr>
@@ -26,9 +26,6 @@
           <td class="table-cell">{{ drink.garnish }}</td>
           <td class="table-cell">{{ drink.ice }}</td>
           <td class="table-cell">
-          <button class="w-full p-2 m-2 bg-blue-500 text-sm hover:bg-blue-600 text-white">
-            Edit
-          </button>
         </td>
         </tr>
       </table>
@@ -41,9 +38,9 @@
 import { onMounted, ref } from 'vue';
 import Modal from '../atoms/Modal.vue';
 
-const props = {
+const props = defineProps({
   drink: Object,
-}
+})
 
 const editDrink = ref(null);
 

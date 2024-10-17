@@ -44,6 +44,7 @@ export default class drinkFunctions {
   }
 
   static async deleteDrink(id) {
+    confirm("Are you sure? this data will be lost");
     try {
       await deleteDoc(doc(db, "drinks", id)).then(() => {
         console.log(`drink with id ${id} deleted`);
