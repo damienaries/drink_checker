@@ -24,7 +24,9 @@
      <td class="table-cell">{{ drink.garnish }}</td>
      <td class="table-cell">{{ drink.ice }}</td>
      <td class="table-cell space-y-4">
-      <button-component @click.prevent="drinkToEdit = drink" :fill="true">Edit</button-component>
+      <button-component @click.prevent="drinkToEdit = drink" :fill="true">
+        <svg-icon icon="edit" color="#111"></svg-icon>
+      </button-component>
       <button-component @click.prevent="deleteDrink(drink.id)" color="danger" :fill="true">Delete</button-component>
      </td>
     </tr>
@@ -43,6 +45,7 @@ import drinkFunctions from '../../firebase/drinkFunctions.js';
 const { getAllDrinks, updateDrink, deleteDrink, getDrink }  = drinkFunctions;
 
 import ButtonComponent from '../atoms/ButtonComponent.vue';
+import SvgIcon from '../atoms/SvgIcon.vue';
 import EditDrinkModal from './EditDrinkModal.vue';
 
 const drinks = ref(null);

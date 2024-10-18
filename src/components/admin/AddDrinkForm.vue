@@ -51,32 +51,33 @@
           </select>
         </div>
         <div class="form-control relative">
-          <div class="flex absolute left-0 bottom-0">
-            <button-component color="secondary" :fill="false" @click.prevent="toggleUnit">
-              Switch to {{ newDrink.unit === 'oz'? 'ml' : 'oz' }}
-            </button-component>
-          </div>
-        <label for="ingredients" class="w-1/5">ingredients</label>
+          <label for="ingredients" class="w-1/5">ingredients</label>
           <table class="w-4/5 ml-4 h-full">
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Quantity in {{ newDrink.unit }}</th>
+                <th>Quantity</th>
               </tr>
             </thead>
             <tbody class="shadow p-4 bg-white">
+              <!-- todo ingredient row add/remove create component with this block -->
               <tr v-for="(ingredient, idx) in newDrink.ingredients" 
-                  :key="idx">               
+                  :key="idx"
+                  class="border-b border-gray-100">               
                 <td>
                   <input class="py-2 p-4 m-1" type="text" v-model="ingredient.name" placeholder="add ingredient">
                 </td>
-                <td class="py-2 px-4 m-1">
+                <td class="py-2 px-4 m-1 flex items-center">
                   <input
                     id="quantity"
                     v-model="ingredient.quantity"
                     type="text"
-                    placeholder="Enter quantity"
+                    placeholder="Enter quantity" class="w-4/5 text-right"
                   />
+                  <span
+                    class="w-1/5 h-full"
+                    v-if="ingredient.quantity && !isNaN(ingredient.quantity)"
+                    >ml</span>
                 </td>
               </tr>
             </tbody>
@@ -102,13 +103,12 @@ const emptyForm = {
     imageUrl: null,
     family: null,
     ingredients: [
-      {name: null, quantity: null},
-      {name: null, quantity: null},
-      {name: null, quantity: null},
-      {name: null, quantity: null},
-      {name: null, quantity: null}
+      {name: null, quantity: null, unit: null},
+      {name: null, quantity: null, unit: null},
+      {name: null, quantity: null, unit: null},
+      {name: null, quantity: null, unit: null},
+      {name: null, quantity: null, unit: null}
     ],  
-    unit: 'oz'
   }
 
 const newDrink = ref(emptyForm);
@@ -122,6 +122,9 @@ onMounted(() => {
 async function addDrink() {
   // only send ingredients needed
   newDrink.value.ingredients = newDrink.value.ingredients.filter(i => i.name !== null && i.quantity !== null)
+ 
+  // TODO if image URL is null, find fallback/placeholder
+
   // save to db
   await addDoc(collection(db, "drinks"), { ...newDrink.value }).then(docRef => {
     // flash message confirm action success
@@ -132,10 +135,6 @@ async function addDrink() {
 
 const clearForm = () => {
   newDrink.value = emptyForm;
-}
-
-const toggleUnit = () => {
-  newDrink.value.unit = newDrink.value.unit === 'oz'? 'ml' : 'oz';
 }
 
 </script>
