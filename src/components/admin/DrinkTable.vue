@@ -16,18 +16,20 @@
           :key="ing.name"
           class="w-full flex items-center justify-between border-b border-gray-200">
           <td class="flex-1">{{ ing.name }}</td>
-          <td class="w-1/3">{{ ing.quantity }} <span>Oz</span></td>
+          <td class="w-1/3">{{ ing.quantity }} <span v-if="!isNaN(ing.quantity)">Oz</span></td>
         </tr>
       </td>
      <td class="table-cell">{{ drink.method }}</td>
      <td class="table-cell">{{ drink.glass }}</td>
      <td class="table-cell">{{ drink.garnish }}</td>
      <td class="table-cell">{{ drink.ice }}</td>
-     <td class="table-cell space-y-4">
-      <button-component @click.prevent="drinkToEdit = drink" :fill="true">
-        <svg-icon icon="edit" color="#111"></svg-icon>
+     <td class="table-cell space-x-4">
+      <button-component @click.prevent="drinkToEdit = drink">
+        <svg-icon icon="edit" color="#111" size="18"></svg-icon>
       </button-component>
-      <button-component @click.prevent="deleteDrink(drink.id)" color="danger" :fill="true">Delete</button-component>
+      <button-component @click.prevent="deleteDrink(drink.id)" color="danger">
+        <svg-icon icon="delete" color="#fff" size="18"></svg-icon>
+      </button-component>
      </td>
     </tr>
   </table>
@@ -35,7 +37,7 @@
   <edit-drink-modal 
      v-if="drinkToEdit"
      :drink="drinkToEdit"
-     @modal-clo="drinkToEdit = null">
+     @modal-close="drinkToEdit = null">
   </edit-drink-modal>
 </template>
 
