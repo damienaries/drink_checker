@@ -32,17 +32,6 @@ export default class drinkFunctions {
     }
   }
 
-  static async updateDrink(drink) {
-    const drinkRef = doc(db, "drinks", drink.id);
-    try {
-      await setDoc(drinkRef, { ...drink }).then(() => {
-        console.log(`drink with id ${drink.id} updated`);
-      });
-    } catch (e) {
-      console.log(`error updating drink with id ${drink.id}`, e);
-    }
-  }
-
   static async deleteDrink(id) {
     confirm("Are you sure? this data will be lost");
     try {
