@@ -1,42 +1,59 @@
 <template>
-  <form @submit.prevent="submitForm" class="p-4 mx-auto shadow-lg rounded m-12 bg-gray-100/50">
+  <form @submit.prevent="submitForm" class="p-4 mx-auto shadow-lg rounded bg-gray-100/50">
     <h4 class="text-lg">{{ formType === "add" ? "Add" : "Edit" }} cocktail</h4>
-    <div class="form-control">
+    <div class="form-control flex flex-col md:flex-row gap-2">
       <label for="name" class="w-1/5">Name</label>
-      <input type="text" id="name" v-model="newDrink.name" class="flex-1 ml-4" required />
+      <input
+        type="text"
+        id="name"
+        v-model="newDrink.name"
+        class="w-full md:w-4/5 md:ml-4"
+        required
+      />
     </div>
-    <div class="form-control">
+    <div class="form-control flex flex-col md:flex-row gap-2">
       <label for="glass" class="w-1/5">Glass</label>
-      <input type="text" id="glass" v-model="newDrink.glass" class="flex-1 ml-4" required />
+      <input
+        type="text"
+        id="glass"
+        v-model="newDrink.glass"
+        class="w-full md:w-4/5 md:ml-4"
+        required
+      />
     </div>
-    <div class="form-control">
+    <div class="form-control flex flex-col md:flex-row gap-2">
       <label for="method" class="w-1/5">method</label>
-      <select id="method" v-model="newDrink.method" class="flex-1 ml-4" required>
+      <select id="method" v-model="newDrink.method" class="w-full md:w-4/5 md:ml-4" required>
         <option>Shake</option>
         <option>Stir</option>
         <option>Build</option>
         <option>Dry Shake</option>
       </select>
     </div>
-    <div class="form-control">
+    <div class="form-control flex flex-col md:flex-row gap-2">
       <label for="ice" class="w-1/5">ice</label>
-      <select id="ice" v-model="newDrink.ice" class="flex-1 ml-4" required>
+      <select id="ice" v-model="newDrink.ice" class="w-full md:w-4/5 md:ml-4" required>
         <option>cube</option>
         <option>crushed</option>
         <option>up</option>
       </select>
     </div>
-    <div class="form-control">
+    <div class="form-control flex flex-col md:flex-row gap-2">
       <label for="garnish" class="w-1/5">garnish</label>
-      <input type="text" id="garnish" v-model="newDrink.garnish" class="flex-1 ml-4" />
+      <input type="text" id="garnish" v-model="newDrink.garnish" class="w-full md:w-4/5 md:ml-4" />
     </div>
-    <div class="form-control">
+    <div class="form-control flex flex-col md:flex-row gap-2">
       <label for="imageUrl" class="w-1/5">imageUrl</label>
-      <input type="text" id="imageUrl" v-model="newDrink.imageUrl" class="flex-1 ml-4" />
+      <input
+        type="text"
+        id="imageUrl"
+        v-model="newDrink.imageUrl"
+        class="w-full md:w-4/5 md:ml-4"
+      />
     </div>
-    <div class="form-control">
+    <div class="form-control flex flex-col md:flex-row gap-2">
       <label for="family" class="w-1/5">family</label>
-      <select id="family" v-model="newDrink.family" class="flex-1 ml-4">
+      <select id="family" v-model="newDrink.family" class="w-full md:w-4/5 md:ml-4">
         <option>Sour</option>
         <option>Collins</option>
         <option>gimlet</option>
@@ -50,7 +67,7 @@
         <option>Old Fashioned</option>
       </select>
     </div>
-    <div class="form-control relative">
+    <div class="form-control flex flex-col md:flex-row gap-2 relative">
       <label for="ingredients" class="w-1/5">ingredients</label>
       <table class="w-4/5 ml-4 h-full">
         <thead>

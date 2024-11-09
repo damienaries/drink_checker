@@ -9,4 +9,16 @@
 		font-family: Ubuntu, sans-serif;
 		text-transform: capitalize;
 	}
+
+	/* todo make global container, add to page level and create grid or base layout */
+	.container-margin {
+		margin: 0 80px;
+		max-width: 1500px;
+	}
+
+	@media screen and (max-width: 800px) {
+		.container-margin {
+			margin: 0 24px;
+		}
+	}
 }

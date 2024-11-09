@@ -1,5 +1,5 @@
 <template>
-  <modal ref="editDrink" @modal-close="$emit('modal-close')">
+  <modal ref="editDrink" @modal-close="$emit('modal-close')" :show-close-button="false">
     <drink-form form-type="edit" :drink="drink"></drink-form>
   </modal>
 </template>

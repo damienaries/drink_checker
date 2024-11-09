@@ -1,5 +1,5 @@
 <template>
-  <section v-if="drinks" class="container-margin drink-table-container">
+  <section v-if="drinks" class="drink-table-container">
     <div class="mb-2 shadow-sm" v-for="drink in drinks" :key="drink.id">
       <div class="flex justify-between items-center bg-gray-100 border-b border-gray-200 p-4">
         <span @click="toggleCollapse(drink.id)" :class="{ 'rotate-90': expanded === drink.id }"
@@ -80,16 +80,5 @@ const toggleCollapse = (id) => {
   padding: 0.5rem 1rem;
   background: #fff;
   text-align: left;
-}
-
-/* todo make global container, add to page level and create grid or base layout */
-.container-margin {
-  margin: 0 100px;
-}
-
-@media screen and (max-width: 800px) {
-  .container-margin {
-    margin: 0 50px;
-  }
 }
 </style>
