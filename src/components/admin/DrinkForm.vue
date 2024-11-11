@@ -1,29 +1,17 @@
 <template>
   <form @submit.prevent="submitForm" class="p-4 mx-auto shadow-lg rounded bg-gray-100/50">
     <h4 class="text-lg">{{ formType === "add" ? "Add" : "Edit" }} cocktail</h4>
-    <div class="form-control flex flex-col md:flex-row gap-2">
+    <div class="form-control flex flex-col md:flex-row">
       <label for="name" class="w-1/5">Name</label>
-      <input
-        type="text"
-        id="name"
-        v-model="newDrink.name"
-        class="w-full md:w-4/5 md:ml-4"
-        required
-      />
+      <input type="text" id="name" v-model="newDrink.name" class="w-full md:w-4/5" required />
     </div>
-    <div class="form-control flex flex-col md:flex-row gap-2">
+    <div class="form-control flex flex-col md:flex-row">
       <label for="glass" class="w-1/5">Glass</label>
-      <input
-        type="text"
-        id="glass"
-        v-model="newDrink.glass"
-        class="w-full md:w-4/5 md:ml-4"
-        required
-      />
+      <input type="text" id="glass" v-model="newDrink.glass" class="w-full md:w-4/5" required />
     </div>
-    <div class="form-control flex flex-col md:flex-row gap-2">
+    <div class="form-control flex flex-col md:flex-row">
       <label for="method" class="w-1/5">method</label>
-      <select id="method" v-model="newDrink.method" class="w-full md:w-4/5 md:ml-4" required>
+      <select id="method" v-model="newDrink.method" class="w-full md:w-4/5" required>
         <option>Shake</option>
         <option>Stir</option>
         <option>Build</option>
@@ -31,30 +19,25 @@
         <option>Muddle</option>
       </select>
     </div>
-    <div class="form-control flex flex-col md:flex-row gap-2">
+    <div class="form-control flex flex-col md:flex-row">
       <label for="ice" class="w-1/5">ice</label>
-      <select id="ice" v-model="newDrink.ice" class="w-full md:w-4/5 md:ml-4" required>
+      <select id="ice" v-model="newDrink.ice" class="w-full md:w-4/5" required>
         <option>cube</option>
         <option>crushed</option>
         <option>up</option>
       </select>
     </div>
-    <div class="form-control flex flex-col md:flex-row gap-2">
+    <div class="form-control flex flex-col md:flex-row">
       <label for="garnish" class="w-1/5">garnish</label>
-      <input type="text" id="garnish" v-model="newDrink.garnish" class="w-full md:w-4/5 md:ml-4" />
+      <input type="text" id="garnish" v-model="newDrink.garnish" class="w-full md:w-4/5" />
     </div>
-    <div class="form-control flex flex-col md:flex-row gap-2">
+    <div class="form-control flex flex-col md:flex-row">
       <label for="imageUrl" class="w-1/5">imageUrl</label>
-      <input
-        type="text"
-        id="imageUrl"
-        v-model="newDrink.imageUrl"
-        class="w-full md:w-4/5 md:ml-4"
-      />
+      <input type="text" id="imageUrl" v-model="newDrink.imageUrl" class="w-full md:w-4/5" />
     </div>
-    <div class="form-control flex flex-col md:flex-row gap-2">
+    <div class="form-control flex flex-col md:flex-row">
       <label for="family" class="w-1/5">family</label>
-      <select id="family" v-model="newDrink.family" class="w-full md:w-4/5 md:ml-4">
+      <select id="family" v-model="newDrink.family" class="w-full md:w-4/5">
         <option>Sour</option>
         <option>Collins</option>
         <option>gimlet</option>
@@ -68,54 +51,24 @@
         <option>Old Fashioned</option>
       </select>
     </div>
-    <div class="form-control flex flex-col md:flex-row gap-2 relative">
-      <label for="ingredients" class="w-1/5">ingredients</label>
-      <table class="w-4/5 ml-4 h-full">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Quantity</th>
-          </tr>
-        </thead>
-        <tbody class="shadow p-4 bg-white">
-          <!-- todo ingredient row add/remove create component with this block -->
-          <tr
-            v-for="(ingredient, idx) in newDrink.ingredients"
-            :key="idx"
-            class="border-b border-gray-100"
-          >
-            <td>
-              <input
-                class="py-2 p-4 m-1"
-                type="text"
-                v-model="ingredient.name"
-                placeholder="add ingredient"
-              />
-            </td>
-            <td class="py-2 px-4 m-1 flex items-center">
-              <input
-                id="quantity"
-                v-model="ingredient.quantity"
-                type="text"
-                placeholder="Enter quantity"
-                class="w-4/5 text-right"
-              />
-              <input
-                disabled
-                class="w-1/5 h-full"
-                id="unit"
-                v-if="ingredient.quantity && !isNaN(ingredient.quantity)"
-                v-model="ingredient.unit"
-                :placeholder="ingredient.unit"
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="form-control relative">
+      <label for="ingredients" class="w-full lg:w-1/5">ingredients</label>
+      <div class="table lg:w-4/5">
+        <div class="flex table-header bg-green-100 border-b border-gray-200 text-left">
+          <div class="w-3/6 py-2 px-4">Name</div>
+          <div class="w-2/6 py-2 px-4 border-x border-gray-200">Quantity</div>
+          <div class="w-1/6 py-2 px-4">Unit</div>
+        </div>
+        <ingredient-row
+          v-for="(ingredient, idx) in newDrink.ingredients"
+          :key="idx"
+          :ingredient="ingredient"
+        ></ingredient-row>
+      </div>
     </div>
-    <div class="form-control flex flex-col md:flex-row gap-2">
+    <div class="form-control flex flex-col md:flex-row">
       <label for="description" class="w-1/5">description</label>
-      <div class="md:w-4/5 md:ml-4 text-left">
+      <div class="md:w-4/5 text-left">
         <input type="checkbox" v-if="!addDescription" @click="addDescription = true" />
         <textarea
           v-else
@@ -137,6 +90,7 @@
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { onMounted, ref } from "vue";
 import db from "../../firebase/init";
+import IngredientRow from "../IngredientRow.vue";
 import ButtonComponent from "../atoms/ButtonComponent.vue";
 
 const emptyForm = {
