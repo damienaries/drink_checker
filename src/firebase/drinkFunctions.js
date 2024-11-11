@@ -1,21 +1,11 @@
-import { collection, deleteDoc, doc, getDoc, getDocs, query } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, getDocs, orderBy, query } from "firebase/firestore";
 import db from "../firebase/init";
-
-// Follow this pattern for other Models || make functions more general, abstract collection name and pass down from component
-/******
- * TODO
- *  Create OK
- *  update
- *  Read all OK
- *  read one OK
- *  Delete OK
- */
 
 export default class drinkFunctions {
   //query(collectionReference, queryFilter())
   static async getAllDrinks() {
     const drinks = [];
-    const querySnap = await getDocs(query(collection(db, "drinks")));
+    const querySnap = await getDocs(query(collection(db, "drinks"), orderBy("name")));
     querySnap.forEach((doc) => {
       drinks.push({ ...doc.data(), id: doc.id });
     });

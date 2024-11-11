@@ -49,19 +49,19 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import drinkFunctions from "../../firebase/drinkFunctions.js";
-const { getAllDrinks, updateDrink, deleteDrink, getDrink } = drinkFunctions;
+const { getAllDrinks, deleteDrink } = drinkFunctions;
 
 import ButtonComponent from "../atoms/ButtonComponent.vue";
 import SvgIcon from "../atoms/SvgIcon.vue";
 import EditDrinkModal from "./EditDrinkModal.vue";
 
-const drinks = ref(null);
+const drinks = ref([]);
 const drinkToEdit = ref(null);
 
-onMounted(() => {
-  // todo onsnapshot for realtime updates
+onBeforeMount(() => {
+  // todo get data earlier, cache, lazy load and infinite scroll
   getAllDrinks().then((res) => {
     drinks.value = res;
   });

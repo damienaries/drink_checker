@@ -51,9 +51,9 @@
         <option>Old Fashioned</option>
       </select>
     </div>
-    <div class="form-control relative">
+    <div class="flex flex-col lg:flex-row gap-2">
       <label for="ingredients" class="w-full lg:w-1/5">ingredients</label>
-      <div class="table lg:w-4/5">
+      <div class="table w-full lg:w-4/5">
         <div class="flex table-header bg-green-100 border-b border-gray-200 text-left">
           <div class="w-3/6 py-2 px-4">Name</div>
           <div class="w-2/6 py-2 px-4 border-x border-gray-200">Quantity</div>
@@ -128,17 +128,23 @@ onMounted(() => {
   });
 });
 
-const submitForm = () => {
+const submitForm = async () => {
   if (props.formType === "add") {
-    addDrink();
+    await addDrink();
   } else {
-    updateDrink(newDrink.value);
+    await updateDrink(newDrink.value);
   }
+  clearForm();
+};
+
+const clearForm = () => {
   newDrink.value = emptyForm;
 };
 
 async function addDrink() {
-  // only send ingredients needed
+  // todo check that drink doesn't exist
+
+  // filter empty ingredients rows
   newDrink.value.ingredients = newDrink.value.ingredients.filter(
     (i) => i.name !== null && i.quantity !== null
   );

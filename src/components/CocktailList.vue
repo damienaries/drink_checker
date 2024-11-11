@@ -1,20 +1,22 @@
 <script setup>
-import { ref } from "vue";
-import cocktails from "../assets/data/cocktails.js";
+import { onMounted, ref } from "vue";
 import drinkFunctions from "../firebase/drinkFunctions.js";
 import DrinkModal from "./DrinkModal.vue";
 const { getAllDrinks } = drinkFunctions;
 
 const cocktailOpened = ref(null);
+const cocktails = ref(null);
 
 function showDrinkDetails(drink) {
   cocktailOpened.value = drink;
 }
 
-// onMounted(() => {
-//   let dbCocktails = getAllDrinks();
-//   console.log(dbCocktails)
-// })
+onMounted(() => {
+  // todo onsnapshot for realtime updates
+  getAllDrinks().then((res) => {
+    cocktails.value = res;
+  });
+});
 </script>
 
 <template>
