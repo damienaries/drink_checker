@@ -28,6 +28,7 @@
         <option>Stir</option>
         <option>Build</option>
         <option>Dry Shake</option>
+        <option>Muddle</option>
       </select>
     </div>
     <div class="form-control flex flex-col md:flex-row gap-2">
@@ -112,6 +113,20 @@
         </tbody>
       </table>
     </div>
+    <div class="form-control flex flex-col md:flex-row gap-2">
+      <label for="description" class="w-1/5">description</label>
+      <div class="md:w-4/5 md:ml-4 text-left">
+        <input type="checkbox" v-if="!addDescription" @click="addDescription = true" />
+        <textarea
+          v-else
+          type="text"
+          id="description"
+          v-model="newDrink.description"
+          class="w-full"
+          rows="5"
+        />
+      </div>
+    </div>
     <button-component :fill="true">
       {{ formType === "add" ? "Add" : "Edit" }} Drink
     </button-component>
@@ -119,7 +134,7 @@
 </template>
 
 <script setup>
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { onMounted, ref } from "vue";
 import db from "../../firebase/init";
 import ButtonComponent from "../atoms/ButtonComponent.vue";
@@ -133,15 +148,17 @@ const emptyForm = {
   imageUrl: null,
   family: null,
   ingredients: [
-    { name: null, quantity: null, unit: null },
-    { name: null, quantity: null, unit: null },
-    { name: null, quantity: null, unit: null },
-    { name: null, quantity: null, unit: null },
-    { name: null, quantity: null, unit: null },
+    { name: null, quantity: null, unit: "oz" },
+    { name: null, quantity: null, unit: "oz" },
+    { name: null, quantity: null, unit: "oz" },
+    { name: null, quantity: null, unit: "oz" },
+    { name: null, quantity: null, unit: "oz" },
   ],
+  description: null,
 };
 
 const newDrink = ref(emptyForm);
+const addDescription = ref(false);
 
 const props = defineProps({
   formType: String,
@@ -161,7 +178,6 @@ const submitForm = () => {
   if (props.formType === "add") {
     addDrink();
   } else {
-    console.log(newDrink.value);
     updateDrink(newDrink.value);
   }
   newDrink.value = emptyForm;
@@ -172,9 +188,6 @@ async function addDrink() {
   newDrink.value.ingredients = newDrink.value.ingredients.filter(
     (i) => i.name !== null && i.quantity !== null
   );
-
-  // TODO if image URL is null, find fallback/placeholder
-
   // save to db
   await addDoc(collection(db, "drinks"), { ...newDrink.value }).then((docRef) => {
     // todo flash message confirm action success
@@ -183,7 +196,6 @@ async function addDrink() {
 }
 
 async function updateDrink(drink) {
-  debugger;
   const drinkRef = doc(db, "drinks", drink.id);
   try {
     await setDoc(drinkRef, { ...drink }).then(() => {

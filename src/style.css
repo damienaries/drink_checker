@@ -10,7 +10,7 @@
 		text-transform: capitalize;
 	}
 
-	/* todo make global container, add to page level and create grid or base layout */
+	/* todo create grid or base layout, plus typography base file */
 	.container-margin {
 		margin: 0 80px;
 		max-width: 1500px;
