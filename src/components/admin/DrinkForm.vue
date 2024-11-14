@@ -87,13 +87,13 @@
 </template>
 
 <script setup>
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { onMounted, ref } from "vue";
 import db from "../../firebase/init";
 import IngredientRow from "../IngredientRow.vue";
 import ButtonComponent from "../atoms/ButtonComponent.vue";
 
-const emptyForm = {
+const newDrink = ref({
   name: null,
   garnish: null,
   ice: null,
@@ -109,9 +109,7 @@ const emptyForm = {
     { name: null, quantity: null, unit: "oz" },
   ],
   description: null,
-};
-
-const newDrink = ref(emptyForm);
+});
 const addDescription = ref(false);
 
 const props = defineProps({
@@ -138,21 +136,39 @@ const submitForm = async () => {
 };
 
 const clearForm = () => {
-  newDrink.value = emptyForm;
+  newDrink.value = {
+    name: null,
+    garnish: null,
+    ice: null,
+    method: null,
+    glass: null,
+    imageUrl: null,
+    family: null,
+    ingredients: [
+      { name: null, quantity: null, unit: "oz" },
+      { name: null, quantity: null, unit: "oz" },
+      { name: null, quantity: null, unit: "oz" },
+      { name: null, quantity: null, unit: "oz" },
+      { name: null, quantity: null, unit: "oz" },
+    ],
+    description: null,
+  };
 };
 
 async function addDrink() {
-  // todo check that drink doesn't exist
-
-  // filter empty ingredients rows
-  newDrink.value.ingredients = newDrink.value.ingredients.filter(
-    (i) => i.name !== null && i.quantity !== null
-  );
-  // save to db
-  await addDoc(collection(db, "drinks"), { ...newDrink.value }).then((docRef) => {
-    // todo flash message confirm action success
-    console.log("Document written with ID: ", docRef.id);
-  });
+  if (checkIfCocktailExists(newDrink.value.name) === false) {
+    // filter empty ingredients rows
+    newDrink.value.ingredients = newDrink.value.ingredients.filter(
+      (i) => i.name !== null && i.quantity !== null
+    );
+    // save to db
+    await addDoc(collection(db, "drinks"), { ...newDrink.value }).then((docRef) => {
+      // todo flash message confirm action success
+      console.log("Document written with ID: ", docRef.id);
+    });
+  } else {
+    console.log("drink already exists", newDrink.value.name);
+  }
 }
 
 async function updateDrink(drink) {
@@ -163,6 +179,23 @@ async function updateDrink(drink) {
     });
   } catch (e) {
     console.log(`error updating drink with id ${drink.id}`, e);
+  }
+}
+
+async function checkIfCocktailExists(drinkName) {
+  try {
+    // Define the collection and query
+    const cocktailsRef = collection(db, "drinks");
+    const q = query(cocktailsRef, where("name", "==", drinkName));
+
+    // Execute the query
+    const querySnapshot = await getDocs(q);
+
+    // Check if any documents were returned
+    return !querySnapshot.empty;
+  } catch (error) {
+    console.error("Error checking for cocktail:", error);
+    return false;
   }
 }
 </script>

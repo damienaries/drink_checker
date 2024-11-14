@@ -2,7 +2,6 @@ import { collection, deleteDoc, doc, getDoc, getDocs, orderBy, query } from "fir
 import db from "../firebase/init";
 
 export default class drinkFunctions {
-  //query(collectionReference, queryFilter())
   static async getAllDrinks() {
     const drinks = [];
     const querySnap = await getDocs(query(collection(db, "drinks"), orderBy("name")));
