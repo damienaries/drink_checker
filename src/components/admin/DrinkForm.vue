@@ -51,7 +51,7 @@
         <option>Old Fashioned</option>
       </select>
     </div>
-    <div class="flex flex-col lg:flex-row gap-2">
+    <div class="flex flex-col lg:flex-row gap-2 relative">
       <label for="ingredients" class="w-full lg:w-1/5">ingredients</label>
       <div class="table w-full lg:w-4/5">
         <div class="flex table-header bg-green-100 border-b border-gray-200 text-left">
@@ -64,6 +64,10 @@
           :key="idx"
           :ingredient="ingredient"
         ></ingredient-row>
+      </div>
+      <div class="flex gap-2 absolute -bottom-8 right-0">
+        <button-component @click.prevent="removeIngredientRow" class=""> - </button-component>
+        <button-component @click.prevent="addIngredientRow" class=""> + </button-component>
       </div>
     </div>
     <div class="form-control flex flex-col md:flex-row">
@@ -110,6 +114,7 @@ const newDrink = ref({
   ],
   description: null,
 });
+
 const addDescription = ref(false);
 
 const props = defineProps({
@@ -156,7 +161,9 @@ const clearForm = () => {
 };
 
 async function addDrink() {
-  if (checkIfCocktailExists(newDrink.value.name) === false) {
+  const exists = await checkIfCocktailExists(newDrink.value.name);
+
+  if (exists === false) {
     // filter empty ingredients rows
     newDrink.value.ingredients = newDrink.value.ingredients.filter(
       (i) => i.name !== null && i.quantity !== null
@@ -196,6 +203,18 @@ async function checkIfCocktailExists(drinkName) {
   } catch (error) {
     console.error("Error checking for cocktail:", error);
     return false;
+  }
+}
+
+function addIngredientRow() {
+  if (newDrink.value.ingredients.length < 10) {
+    newDrink.value.ingredients.push({ name: null, quantity: null, unit: "oz" });
+  }
+}
+
+function removeIngredientRow() {
+  if (newDrink.value.ingredients.length > 3) {
+    newDrink.value.ingredients.pop();
   }
 }
 </script>
