@@ -1,5 +1,5 @@
 import { collection, deleteDoc, doc, getDoc, getDocs, orderBy, query } from "firebase/firestore";
-import db from "../firebase/init";
+import db from "./init";
 
 export default class drinkFunctions {
   static async getAllDrinks() {

@@ -91,9 +91,10 @@
 </template>
 
 <script setup>
+import axios from "axios";
 import { addDoc, collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { onMounted, ref } from "vue";
-import db from "../../firebase/init";
+import db from "../../../server/firebase/init";
 import IngredientRow from "../IngredientRow.vue";
 import ButtonComponent from "../atoms/ButtonComponent.vue";
 
@@ -180,12 +181,27 @@ async function addDrink() {
 
 async function updateDrink(drink) {
   const drinkRef = doc(db, "drinks", drink.id);
+  const image = await generateDrinkImage(drink.name);
+  debugger;
+
   try {
     await setDoc(drinkRef, { ...drink }).then(() => {
       console.log(`drink with id ${drink.id} updated`);
     });
   } catch (e) {
     console.log(`error updating drink with id ${drink.id}`, e);
+  }
+}
+
+async function generateDrinkImage(drinkName) {
+  debugger;
+  try {
+    const response = await axios.post("http://localhost:3000/api/generate-drink-image", drinkName);
+
+    console.log("Image path:", response.data.imagePath);
+    return response.data.imagePath;
+  } catch (error) {
+    console.error("Error generating image:", error.response?.data || error.message);
   }
 }
 

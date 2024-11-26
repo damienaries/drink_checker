@@ -28,6 +28,8 @@
             </span>
           </li>
         </ul>
+
+        <small v-if="drink.description">{{ drink.description }}</small>
       </div>
     </div>
   </modal>

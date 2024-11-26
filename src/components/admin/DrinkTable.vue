@@ -54,7 +54,7 @@
 
 <script setup>
 import { onBeforeMount, ref } from "vue";
-import drinkFunctions from "../../firebase/drinkFunctions.js";
+import drinkFunctions from "../../../server/firebase/drinkFunctions.js";
 const { getAllDrinks, deleteDrink } = drinkFunctions;
 
 import ButtonComponent from "../atoms/ButtonComponent.vue";

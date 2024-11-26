@@ -1,24 +1,3 @@
-<script setup>
-import { onMounted, ref } from "vue";
-import drinkFunctions from "../firebase/drinkFunctions.js";
-import DrinkModal from "./DrinkModal.vue";
-const { getAllDrinks } = drinkFunctions;
-
-const cocktailOpened = ref(null);
-const cocktails = ref(null);
-
-function showDrinkDetails(drink) {
-  cocktailOpened.value = drink;
-}
-
-onMounted(() => {
-  // todo onsnapshot for realtime updates
-  getAllDrinks().then((res) => {
-    cocktails.value = res;
-  });
-});
-</script>
-
 <template>
   <section class="w-full md:w-4/5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 h-fit">
     <!-- todo make card component, use here and for families aside -->
@@ -42,3 +21,24 @@ onMounted(() => {
   <DrinkModal :drink="cocktailOpened" v-if="cocktailOpened" @modal-close="cocktailOpened = null">
   </DrinkModal>
 </template>
+
+<script setup>
+import { onMounted, ref } from "vue";
+import drinkFunctions from "../../server/firebase/drinkFunctions";
+import DrinkModal from "./DrinkModal.vue";
+const { getAllDrinks } = drinkFunctions;
+
+const cocktailOpened = ref(null);
+const cocktails = ref(null);
+
+function showDrinkDetails(drink) {
+  cocktailOpened.value = drink;
+}
+
+onMounted(() => {
+  // todo onsnapshot for realtime updates
+  getAllDrinks().then((res) => {
+    cocktails.value = res;
+  });
+});
+</script>
