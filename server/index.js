@@ -1,6 +1,5 @@
 const express = require("express");
 const openaiService = require("./services/openai");
-import { getRandomParameters } from "./services/paramRandomizer";
 
 const app = express();
 const PORT = 3000;
@@ -8,8 +7,7 @@ const PORT = 3000;
 app.use(express.json());
 
 app.post("/api/generate-drink-image", async (req, res) => {
-  const { drinkName } = req.body;
-  const parameters = getRandomParameters();
+  const { drinkName, parameters } = req.body;
 
   try {
     const imagePath = await openaiService.generateDrinkImage(drinkName, parameters);
