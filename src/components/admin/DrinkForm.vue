@@ -95,7 +95,6 @@ import axios from "axios";
 import { addDoc, collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { onMounted, ref } from "vue";
 import db from "../../../server/firebase/init";
-import { getRandomParameters } from "../../../server/services/paramRandomizer.mjs";
 import IngredientRow from "../IngredientRow.vue";
 import ButtonComponent from "../atoms/ButtonComponent.vue";
 
@@ -172,6 +171,10 @@ async function addDrink() {
     );
 
     // generate image
+    const imagePath = await generateDrinkImage(drink.name);
+    if (imagePath) {
+      newDrink.value.imageUrl = imagePath;
+    }
 
     // save to db
     await addDoc(collection(db, "drinks"), { ...newDrink.value }).then((docRef) => {
@@ -198,19 +201,15 @@ async function updateDrink(drink) {
 }
 
 async function generateDrinkImage(drinkName) {
-  const parameters = getRandomParameters();
   debugger;
   try {
-    const response = await axios.post(
-      "http://localhost:3000/api/generate-drink-image",
-      drinkName,
-      parameters
-    );
+    const response = await axios.post("http://localhost:3000/api/generate-drink-image", drinkName);
 
     console.log("Image path:", response.data.imagePath);
     return response.data.imagePath;
   } catch (error) {
     console.error("Error generating image:", error.response?.data || error.message);
+    return null;
   }
 }
 

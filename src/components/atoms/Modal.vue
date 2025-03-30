@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { defineExpose, ref } from "vue";
+import { ref } from "vue";
 import ButtonComponent from "./ButtonComponent.vue";
 
 const props = defineProps({

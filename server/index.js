@@ -1,8 +1,22 @@
 const express = require("express");
 const openaiService = require("./services/openai");
+const cors = require("cors");
+const path = require("path");
+
+require("dotenv").config();
 
 const app = express();
 const PORT = 3000;
+
+// CORS config
+app.use(
+  cors({
+    origin:
+      process.env.NODE_ENV === "development" ? "http://localhost:5173" : "https://your-website.com",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(express.json());
 
